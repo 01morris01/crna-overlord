@@ -41,6 +41,7 @@ export function renderRun() {
   note.textContent = run.placeholderActive ? 'Placeholder content still active for some topics.' : '';
   const stats = deriveRunStats(state.run);
   updateHud();
+  drawSRNAAvatar();
   renderAdaptiveLiveStats(stats);
   renderInlineHud(stats);
   renderCurrentQuestion();
@@ -122,6 +123,7 @@ function finalizeAnswer(isCorrect) {
   submitAnswer(isCorrect);
   const stats = deriveRunStats(state.run);
   updateHud();
+  drawSRNAAvatar();
   renderAdaptiveLiveStats(stats);
   renderInlineHud(stats);
   showResult(isCorrect, question);
@@ -235,7 +237,9 @@ function updateAnswerFeedback(stats = deriveRunStats(state.run)) {
   }
   document.querySelector('#answer-feedback').textContent = feedback;
   const ov = document.querySelector('#ov-character');
-  if (ov) ov.textContent = `💀 OVERLORD: "${feedback}"`; 
+  if (ov) ov.textContent = `💀 OVERLORD: "${feedback}"`;
+  const ovBubble = document.querySelector('#ov-bubble');
+  if (ovBubble) ovBubble.textContent = feedback;
 }
 
 function buildEndRunSummary(stats = deriveRunStats(state.run)) {
@@ -259,6 +263,49 @@ function buildEndRunSummary(stats = deriveRunStats(state.run)) {
     <strong>Top 3 Weakest Topics:</strong> ${weakestTopics}<br/>
     <strong>Top 3 Strongest Topics:</strong> ${strongestTopics}
   `;
+}
+
+function drawSRNAAvatar() {
+  const cvs = document.querySelector('#srna-cvs');
+  if (!cvs) return;
+  const ctx = cvs.getContext('2d');
+  const w = cvs.width;
+  const h = cvs.height;
+  ctx.clearRect(0, 0, w, h);
+
+  ctx.fillStyle = 'rgba(4, 8, 26, 0.9)';
+  ctx.fillRect(0, 0, w, h);
+
+  const x = 55;
+  const y = 120;
+  ctx.fillStyle = '#2266aa';
+  ctx.fillRect(x - 14, y - 62, 28, 10);
+  ctx.beginPath();
+  ctx.arc(x, y - 45, 16, 0, Math.PI * 2);
+  ctx.fillStyle = '#ddaa88';
+  ctx.fill();
+  ctx.fillStyle = '#333';
+  ctx.fillRect(x - 7, y - 48, 4, 4);
+  ctx.fillRect(x + 3, y - 48, 4, 4);
+  ctx.fillStyle = '#88bbdd';
+  ctx.fillRect(x - 10, y - 40, 20, 8);
+  ctx.fillStyle = '#2266aa';
+  ctx.fillRect(x - 18, y - 28, 36, 45);
+  ctx.fillStyle = '#1a5588';
+  ctx.fillRect(x - 16, y + 17, 14, 35);
+  ctx.fillRect(x + 2, y + 17, 14, 35);
+  ctx.fillStyle = '#333';
+  ctx.fillRect(x - 16, y + 52, 14, 6);
+  ctx.fillRect(x + 2, y + 52, 14, 6);
+  ctx.fillStyle = '#ddaa88';
+  ctx.fillRect(x - 26, y - 25, 10, 30);
+  ctx.fillRect(x + 16, y - 25, 10, 30);
+  ctx.fillStyle = '#6688aa';
+  ctx.font = 'bold 8px Courier New';
+  ctx.textAlign = 'center';
+  ctx.fillText(state.playerName || 'SRNA', x, h - 18);
+  ctx.fillStyle = '#445566';
+  ctx.fillText('OVERLORD TRAINEE', x, h - 8);
 }
 
 function addRevealButton(question) {
