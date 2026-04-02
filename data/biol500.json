@@ -1,0 +1,120 @@
+{
+  "course": {
+    "id": "biol500",
+    "name": "Advanced Physiology & Pathophysiology I"
+  },
+  "sections": {
+    "cellular": { "label": "Cellular", "weeks": [1, 2] },
+    "muscle": { "label": "Muscle", "weeks": [3, 4] },
+    "cardiac": { "label": "Cardiac", "weeks": [5, 6, 7] },
+    "circulation": { "label": "Circulation", "weeks": [8, 9, 10, 11, 12] },
+    "renal": { "label": "Renal", "weeks": [13, 14, 15] }
+  },
+  "examBlocks": {
+    "exam1": { "label": "Exam 1", "weeks": [1, 2, 3, 4] },
+    "exam2": { "label": "Exam 2", "weeks": [5, 6, 7] },
+    "exam3": { "label": "Exam 3", "weeks": [8, 9, 10, 11] },
+    "final": { "label": "Final", "weeks": [12, 13, 14, 15] }
+  },
+  "questions": [
+    {
+      "id": "b500-q-001",
+      "course": "biol500",
+      "section": "cellular",
+      "topic": "Cell membranes",
+      "week": 1,
+      "examBlock": "exam1",
+      "difficulty": "easy",
+      "type": "mcq",
+      "question": "Which force is the main driver of water movement out of capillaries on the arteriolar side?",
+      "choices": ["Plasma oncotic pressure", "Capillary hydrostatic pressure", "Lymphatic suction"],
+      "answer": 1,
+      "explanation": "Capillary hydrostatic pressure is typically strongest at the arteriolar end and pushes fluid outward.",
+      "tags": ["starling", "microcirculation"]
+    },
+    {
+      "id": "b500-q-002",
+      "course": "biol500",
+      "section": "muscle",
+      "topic": "Skeletal muscle",
+      "week": 3,
+      "examBlock": "exam1",
+      "difficulty": "medium",
+      "type": "typed",
+      "question": "Type the primary ion responsible for the upstroke of skeletal muscle action potential.",
+      "choices": [],
+      "answer": "sodium",
+      "explanation": "Fast sodium channel opening drives rapid depolarization in skeletal muscle fibers.",
+      "tags": ["muscle", "action potential"]
+    },
+    {
+      "id": "b500-q-003",
+      "course": "biol500",
+      "section": "cardiac",
+      "topic": "Cardiac output",
+      "week": 5,
+      "examBlock": "exam2",
+      "difficulty": "easy",
+      "type": "mcq",
+      "question": "If venous return rises while contractility and HR remain stable, what happens first?",
+      "choices": ["Stroke volume rises via Frank-Starling", "MAP immediately falls", "Afterload collapses to zero"],
+      "answer": 0,
+      "explanation": "Increased preload stretches myocardial fibers and increases stroke volume via Frank-Starling.",
+      "tags": ["frank-starling", "cardiac output"]
+    },
+    {
+      "id": "b500-q-004",
+      "course": "biol500",
+      "section": "circulation",
+      "topic": "Venous reservoir",
+      "week": 9,
+      "examBlock": "exam3",
+      "difficulty": "medium",
+      "type": "click",
+      "question": "Click the vessel compartment that stores the largest blood volume at rest.",
+      "choices": [],
+      "answer": "veins",
+      "explanation": "Systemic veins are high-compliance capacitance vessels and store the majority of blood volume.",
+      "tags": ["venous compliance", "hemodynamics"],
+      "scene": {
+        "label": "Compartment Map",
+        "hotspots": [
+          { "id": "arteries", "label": "Arteries", "x": 90, "y": 120, "w": 160, "h": 80 },
+          { "id": "capillaries", "label": "Capillaries", "x": 290, "y": 90, "w": 160, "h": 70 },
+          { "id": "veins", "label": "Veins", "x": 500, "y": 110, "w": 170, "h": 90 }
+        ]
+      }
+    },
+    {
+      "id": "b500-q-005",
+      "course": "biol500",
+      "section": "renal",
+      "topic": "Renal autoregulation",
+      "week": 13,
+      "examBlock": "final",
+      "difficulty": "hard",
+      "type": "mcq",
+      "question": "Afferent arteriole constriction most directly causes which immediate change?",
+      "choices": ["Increased GFR", "Reduced glomerular capillary hydrostatic pressure", "Increased filtration fraction"],
+      "answer": 1,
+      "explanation": "Constriction upstream lowers glomerular hydrostatic pressure and tends to reduce GFR.",
+      "tags": ["renal", "gfr"]
+    },
+    {
+      "id": "b500-q-006",
+      "course": "biol500",
+      "section": "circulation",
+      "topic": "Baroreflex",
+      "week": 12,
+      "examBlock": "final",
+      "difficulty": "medium",
+      "type": "typed",
+      "question": "Type the cranial nerve that carries carotid sinus baroreceptor afferents.",
+      "choices": [],
+      "answer": "glossopharyngeal",
+      "aliases": ["cn ix", "cranial nerve ix", "ix"],
+      "explanation": "Carotid sinus afferents travel via Hering's nerve to CN IX.",
+      "tags": ["baroreflex", "neuro"]
+    }
+  ]
+}
