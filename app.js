@@ -1,7 +1,14 @@
 import { loadState, state } from './core/state.js';
 import { loadCourses, loadCourseData, getCoverageReport } from './core/questionEngine.js';
 import { startGameMode } from './core/gameEngine.js';
-import { renderCourseSelect, renderModeSelect, renderQuickStudyMenu } from './ui/menus.js';
+import {
+  renderMainMenu,
+  renderCourseHub,
+  renderSectionSelect,
+  renderLessonSelect,
+  renderExamSelect,
+  renderAdaptiveMenu,
+} from './ui/menus.js';
 import { initGameUI, renderRun } from './ui/gameUI.js';
 
 let courses = [];
@@ -14,71 +21,75 @@ boot();
 async function boot() {
   loadState();
   animateBackground();
-  initGameUI({ handleBackToMenus: showCourseMenu });
+
+  initGameUI({ handleBackToMenus: showMainMenu });
 
   courses = await loadCourses();
-  const fallbackCourse = courses.find((c) => c.id === state.lastSelectedCourse) || courses[0];
-  selectedCourse = fallbackCourse;
-  await setCourseContext(selectedCourse);
-
-  showCourseMenu();
+  const fallback = courses.find((c) => c.id === state.lastSelectedCourse) || courses[0];
+  await setCourseContext(fallback);
+  showMainMenu();
 }
 
 async function setCourseContext(course) {
   selectedCourse = course;
-  selectedCourseData = await loadCourseData(selectedCourse);
+  selectedCourseData = await loadCourseData(course);
   selectedCoverage = getCoverageReport(selectedCourseData);
-  console.log(`[Coverage] ${selectedCourse.id}`, selectedCoverage);
 }
 
-function showCourseMenu() {
+function showMainMenu() {
   const splash = document.querySelector('#splash');
   splash.classList.remove('hidden');
-  renderCourseSelect(
-    splash,
-    courses,
-    async (course) => {
-      await setCourseContext(course);
-      showModeMenu();
-    },
-    selectedCoverage,
-  );
+  renderMainMenu(splash, courses, async (course) => {
+    await setCourseContext(course);
+    showCourseHub();
+  }, selectedCoverage);
 }
 
-function showModeMenu() {
-  const splash = document.querySelector('#splash');
-  renderModeSelect(
-    splash,
-    selectedCourse,
-    (mode) => {
-      if (mode === 'progression') startAndRender('progression');
-      else showQuickStudyMenu();
-    },
-    showCourseMenu,
-    selectedCoverage,
-  );
+function showCourseHub() {
+  renderCourseHub(document.querySelector('#splash'), selectedCourse, {
+    onSections: showSections,
+    onExams: showExams,
+    onAdaptive: showAdaptive,
+    onFull: () => startAndRender('full-cumulative'),
+    onBack: showMainMenu,
+  }, selectedCoverage);
 }
 
-function showQuickStudyMenu() {
-  const splash = document.querySelector('#splash');
-  renderQuickStudyMenu(
-    splash,
-    selectedCourseData,
-    (mode, options = {}) => startAndRender(mode, options),
-    showModeMenu,
-    selectedCoverage,
-  );
+function showSections() {
+  renderSectionSelect(document.querySelector('#splash'), selectedCourseData, {
+    onSection: (sectionId) => showLessons(sectionId),
+    onBack: showCourseHub,
+  }, selectedCoverage);
+}
+
+function showLessons(sectionId) {
+  renderLessonSelect(document.querySelector('#splash'), selectedCourseData, sectionId, {
+    onLesson: (sid, lesson) => startAndRender('lesson-run', { sectionId: sid, lessonId: lesson.id, lessonName: lesson.name }),
+    onSectionCumulative: (sid) => startAndRender('section-cumulative', { sectionId: sid }),
+    onBack: showSections,
+  }, selectedCoverage);
+}
+
+function showExams() {
+  renderExamSelect(document.querySelector('#splash'), selectedCourseData, {
+    onExam: (examBlock) => startAndRender('exam-cumulative', { examBlock }),
+    onBack: showCourseHub,
+  }, selectedCoverage);
+}
+
+function showAdaptive() {
+  renderAdaptiveMenu(document.querySelector('#splash'), {
+    onMode: (mode) => startAndRender(mode),
+    onBack: showCourseHub,
+  }, selectedCoverage);
 }
 
 function startAndRender(mode, options = {}) {
-  // TODO: Add missed-question scheduling windows (spaced repetition) on top of adaptive weights.
-  // TODO: Add adaptive-difficulty pre-run options.
-  // TODO: Add AI tutor/chat launcher after each run summary.
-  startGameMode(mode, {
-    course: selectedCourse,
-    courseData: selectedCourseData,
-    ...options,
-  });
+  // TODO: Import real lesson names/content from class materials.
+  // TODO: Restore deeper legacy overlord animation behaviors.
+  // TODO: Add section boss-level encounters.
+  // TODO: Add exam simulation mode presets.
+  startGameMode(mode, { course: selectedCourse, courseData: selectedCourseData, ...options });
   renderRun();
 }
 
