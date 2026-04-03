@@ -1,0 +1,15 @@
+[
+  {
+    "id": "biol500",
+    "name": "Advanced Physiology & Pathophysiology I",
+    "shortLabel": "Pathophysiology",
+    "dataFile": "./data/biol500.json",
+    "sections": {
+      "cellular": "Cellular Physiology (Weeks 1–2)",
+      "muscle": "Muscle Physiology (Weeks 3–4)",
+      "cardiac": "Cardiac Function (Weeks 5–7)",
+      "circulation": "Circulation & Hemodynamics (Weeks 8–12)",
+      "renal": "Renal/Fluid Physiology (Weeks 13–15)"
+    }
+  }
+]
