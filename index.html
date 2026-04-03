@@ -9,25 +9,17 @@
 <body>
   <canvas id="bg"></canvas>
   <div id="app">
-    <section id="splash" aria-live="polite">
-      <div class="sp-title">HEMODYNAMIC<br/>OVERLORD</div>
-      <div class="sp-sub">⚡ CRNA STUDY GAUNTLET ⚡</div>
-      <div class="sp-tag">Initializing game shell...</div>
-      <div class="menu-stack" id="menu-stack"></div>
-    </section>
+    <section id="splash" aria-live="polite"></section>
 
     <section id="game" class="hidden">
       <div id="hud">
         <div class="vb"><span class="vl">RUN</span><span class="vv" id="run-label">--</span></div>
         <div class="vb"><span class="vl">LIVES</span><span class="vv" id="lives-label">3</span></div>
-        <canvas id="ecg" width="140" height="40"></canvas>
         <div class="vb"><span class="vl">POINTS</span><span class="vv" id="points-label">0</span></div>
         <div class="vb"><span class="vl">BANK</span><span class="vv" id="bank-label">0</span></div>
         <div style="flex:1"></div>
         <button id="store-btn" type="button">🛒 STORE</button>
-        <div id="lives"><span class="hlf" id="l1">♥</span><span class="hlf" id="l2">♥</span><span class="hlf" id="l3">♥</span></div>
       </div>
-
       <div id="prog"><div id="prog-fill"></div></div>
       <div id="qctr"><span id="course-label">Course</span> — Q <span id="qn">1</span>/<span id="qt">1</span></div>
       <div id="content-note" class="content-note"></div>
@@ -41,9 +33,7 @@
       <div id="focus-hint" class="focus-hint">Focus: —</div>
 
       <div id="scene-row">
-        <div id="srna-panel"><canvas id="srna-cvs" width="110" height="260"></canvas></div>
         <canvas id="scn" width="720" height="320"></canvas>
-        <div id="ov-area"><span class="ov-icon">💀</span><div class="ov-bub" id="ovb">Guidance online.</div></div>
       </div>
 
       <div id="ch-wrap" class="on">
@@ -51,12 +41,6 @@
           <div class="cb" id="chb">MODE</div>
           <div class="ov-setup" id="ovs"></div>
           <div class="q-text" id="qtxt"></div>
-          <div id="pwr-row">
-            <button class="pwr-btn" id="pw-shield">🫁 <span id="pc-shield">0</span></button>
-            <button class="pwr-btn" id="pw-skip">🔪 <span id="pc-skip">0</span></button>
-            <button class="pwr-btn" id="pw-reveal">📺 <span id="pc-reveal">0</span></button>
-            <button class="pwr-btn" id="pw-time">⏱ <span id="pc-time">0</span></button>
-          </div>
           <div id="answer-feedback" class="focus-hint">Building baseline</div>
           <div id="ans-area">
             <div id="ans-grid"></div>
@@ -90,37 +74,6 @@
         <div class="store-grid" id="store-grid"></div>
         <button class="store-close" id="store-close" type="button">BACK TO OR</button>
       </div>
-    </div>
-
-    <div id="level-map">
-      <div class="map-title">🗺️ LEVEL MAP</div>
-      <div class="map-sub">CHOOSE YOUR BATTLEFIELD</div>
-      <div class="map-player" id="map-player"></div>
-      <button class="map-store-btn" type="button">🛒 EQUIPMENT STORE</button>
-      <div class="map-path" id="map-path"></div>
-    </div>
-
-    <div id="pause-overlay">
-      <div class="pause-title">⏸ PAUSED</div>
-      <button class="pause-btn resume" type="button">▶ RESUME</button>
-      <button class="pause-btn store" type="button">🛒 EQUIPMENT STORE</button>
-      <button class="pause-btn quit" type="button">🗺️ BACK TO MAP</button>
-    </div>
-
-    <div id="lvl-screen">
-      <div class="lvl-title" id="lvl-t">LEVEL 2</div>
-      <div class="lvl-name" id="lvl-n">YOUR NEXT CASE</div>
-      <div class="lvl-score" id="lvl-sc">Score: 0</div>
-      <div id="lvl-review"></div>
-      <button class="big-btn green" type="button" id="lvl-continue-btn">CONTINUE →</button>
-    </div>
-
-    <div id="go">
-      <div class="go-t" id="go-t">PATIENT DECEASED</div>
-      <div class="go-s" id="go-s">— career over before it started —</div>
-      <div class="go-pts" id="go-pts">0</div>
-      <div class="go-pl">PHYSIOLOGY POINTS</div>
-      <button class="big-btn" type="button">⚡ NEW PATIENT ⚡</button>
     </div>
   </div>
 
