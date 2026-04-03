@@ -57,11 +57,6 @@ export function startGameMode(mode, options = {}) {
       runPayload = selectQuestions(courseData, { kind: 'section', sectionId: options.sectionId, minimum: 8 }, state);
       modeKey = `${mode}:${options.sectionId}`;
       break;
-    case 'lesson-run':
-      runLabel = options.lessonName || 'Lesson';
-      runPayload = selectQuestions(courseData, { kind: 'lesson', lessonId: options.lessonId, minimum: 6 }, state);
-      modeKey = `${mode}:${options.lessonId}`;
-      break;
     case 'random-10':
       runLabel = 'Random 10';
       runPayload = selectQuestions(courseData, { kind: 'full', count: 10, minimum: 10 }, state);
