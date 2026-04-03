@@ -21,6 +21,7 @@ boot();
 async function boot() {
   loadState();
   animateBackground();
+
   initGameUI({ handleBackToMenus: showMainMenu });
 
   courses = await loadCourses();
@@ -96,12 +97,21 @@ function animateBackground() {
   const canvas = document.querySelector('#bg');
   const ctx = canvas.getContext('2d');
 
-  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
   resize();
   window.addEventListener('resize', resize);
 
-  const stars = Array.from({ length: 120 }, () => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.6 + 0.2, s: Math.random() * 0.4 + 0.1 }));
-  (function tick() {
+  const stars = Array.from({ length: 120 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.6 + 0.2,
+    s: Math.random() * 0.4 + 0.1,
+  }));
+
+  function tick() {
     ctx.fillStyle = 'rgba(2,4,18,0.4)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     stars.forEach((star) => {
@@ -113,5 +123,10 @@ function animateBackground() {
       ctx.fill();
     });
     requestAnimationFrame(tick);
-  }());
+  }
+  tick();
 }
+
+// TODO: Add support for additional courses by extending /data/courses.json.
+// TODO: Migrate remaining legacy BIOL-500 hardcoded question bank into /data/biol500.json.
+// TODO: Import more real class content in batches with coverage validation.

@@ -99,7 +99,6 @@ export function selectQuestions(courseData, modeConfig, playerState) {
   let pool = [...questions];
   if (modeConfig.kind === 'exam') pool = pool.filter((q) => q.examBlock === modeConfig.examBlock);
   if (modeConfig.kind === 'section') pool = pool.filter((q) => q.section === modeConfig.sectionId);
-  if (modeConfig.kind === 'lesson') pool = pool.filter((q) => q.lesson === modeConfig.lessonId);
   if (modeConfig.kind === 'missed') pool = pool.filter((q) => playerState.missedQuestions.includes(q.id));
 
   if (!pool.length) {
